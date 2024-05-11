@@ -35,8 +35,7 @@ const Sidebar = () => {
               }
               variant="ghost"
               size="sm"
-              isDisable={true}
-              onClick={() => handleStatus(status)}
+              onPress={() => handleStatus(status)}
             >
               {status}
             </ButtonFilter>
@@ -59,8 +58,7 @@ const Sidebar = () => {
               }
               variant="ghost"
               size="sm"
-              isDisable={true}
-              onClick={() => handleGender(gender)}
+              onPress={() => handleGender(gender)}
             >
               {gender}
             </ButtonFilter>

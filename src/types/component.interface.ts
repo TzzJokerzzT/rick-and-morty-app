@@ -82,8 +82,7 @@ export interface ButtonFilterProps {
     | "danger"
     | undefined;
   size: "sm" | "md" | "lg";
-  isDisable: boolean;
-  onClick: (i: string) => void;
+  onPress: () => void;
   children: React.ReactNode;
 }
 
