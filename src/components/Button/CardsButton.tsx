@@ -7,7 +7,7 @@ const CardsButton = ({
   size,
   variant,
   className,
-  onClick,
+  onPress,
   children,
 }: ButtonCardsProps) => {
   return (
@@ -17,7 +17,7 @@ const CardsButton = ({
       size={size}
       variant={variant}
       className={className}
-      onClick={onClick}
+      onPress={onPress}
     >
       {children}
     </Button>

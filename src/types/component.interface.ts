@@ -59,7 +59,7 @@ export interface ButtonCardsProps {
     | undefined;
   className: string;
   children: React.ReactNode;
-  onClick: (character: React.MouseEventHandler<HTMLButtonElement>) => void;
+  onPress: () => void;
   ///MouseEventHandler<HTMLButtonElement>
 }
 
