@@ -12,6 +12,7 @@ export interface ProviderState {
   isFavorite: { [key: number]: boolean };
   page: number;
   pagPages: number;
+  isLoading: boolean;
   setPage: React.Dispatch<SetStateAction<number>>;
   localStorageStates: () => {
     email: string;

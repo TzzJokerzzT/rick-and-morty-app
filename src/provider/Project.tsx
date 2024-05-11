@@ -39,7 +39,6 @@ export const ProjectProvider = ({ children }: ProviderProps) => {
     return { email, password, isFavoriteChar, isFavorite };
   };
 
-
   const getStatesLocalStorage = () => {
     const statesJSON = localStorage.getItem("appStates");
     if (!statesJSON) return;
@@ -121,6 +120,7 @@ export const ProjectProvider = ({ children }: ProviderProps) => {
         isFavorite,
         page,
         pagPages,
+        isLoading,
         localStorageStates,
         setPage,
         handleChangeEmail,
