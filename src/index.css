@@ -1,0 +1,20 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --scrollbar-color: #0baa32;
+  --scrollbar-back: #001e1d;
+}
+
+* {
+  scroll-behavior: smooth;
+  scrollbar-width: none;
+}
+
+html,
+body {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
