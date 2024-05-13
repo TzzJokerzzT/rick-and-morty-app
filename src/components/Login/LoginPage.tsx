@@ -1,5 +1,5 @@
 import { useContext } from "react";
-import Btn from "@/components/Button/Button";
+import ButtonSearch from "@/components/Button/Button";
 import InputLogin from "@/components/Input/Input";
 import { ProjectContext } from "@/provider/Project";
 import { ProviderState } from "@/types/provider.interface";
@@ -29,7 +29,13 @@ const LoginPage = () => {
           defaultValue=""
           onChange={handleChangePassword}
         />
-        {isValid ? <ButtonLoading /> : <Btn type="submit">Login</Btn>}
+        {isValid ? (
+          <ButtonLoading />
+        ) : (
+          <ButtonSearch size="md" className="m-1" type="submit">
+            Login
+          </ButtonSearch>
+        )}
       </form>
     </section>
   );
