@@ -15,6 +15,7 @@ function App() {
       <Routes>
         <Route path="/" element={isValid ? <Main /> : <Login />} />
         <Route path="/favorites" element={<Favorites />} />
+        <Route path="*" element={<h1>ERROR</h1>} />
       </Routes>
     </BrowserRouter>
   );
