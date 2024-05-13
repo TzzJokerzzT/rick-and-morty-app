@@ -2,6 +2,7 @@ import { ButtonFilterProps } from "@/types/component.interface";
 import { Button } from "@nextui-org/react";
 
 const ButtonFilter = ({
+  className,
   children,
   variant,
   color,
@@ -9,7 +10,13 @@ const ButtonFilter = ({
   onPress,
 }: ButtonFilterProps) => {
   return (
-    <Button color={color} variant={variant} size={size} onPress={onPress}>
+    <Button
+      className={className}
+      color={color}
+      variant={variant}
+      size={size}
+      onPress={onPress}
+    >
       {children}
     </Button>
   );

@@ -9,6 +9,9 @@ module.exports = {
   ],
   theme: {
     extend: {
+      screens: {
+        mobile: { max: "540px" },
+      },
       fontFamily: {
         "press-text": "Press Start 2P, cursive",
       },

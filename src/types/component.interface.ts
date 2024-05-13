@@ -2,6 +2,8 @@ import { Character } from "./services.interface";
 
 export interface ButtonProps {
   type: "button" | "submit" | "reset";
+  size: "sm" | "md" | "lg";
+  className: string;
   children: string;
 }
 
@@ -19,7 +21,7 @@ export interface InputSearchProps {
   size: "sm" | "md" | "lg";
   className: string;
   placeholder?: string;
-  defaultValue: string;
+  value: string;
   onChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
 }
 
@@ -83,6 +85,7 @@ export interface ButtonFilterProps {
     | undefined;
   size: "sm" | "md" | "lg";
   onPress: () => void;
+  className: string;
   children: React.ReactNode;
 }
 
@@ -103,5 +106,20 @@ export interface PaginationProps {
   variant: "flat";
   color: "success";
   onChange?: React.Dispatch<React.SetStateAction<number>>;
+  className: string;
+}
+
+export interface ErrorProps {
+  children: React.ReactNode;
+}
+
+export interface ScrollBarProps {
+  size: number;
+  hideScrollBar: boolean;
+  className: string;
+  children: React.ReactNode;
+}
+
+export interface SidebarProps {
   className: string;
 }

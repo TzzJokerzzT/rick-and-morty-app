@@ -1,4 +1,4 @@
-export interface Character {
+export type Character = {
   id: number;
   name: string;
   status: "Alive" | "Dead" | "unknown";
@@ -6,13 +6,18 @@ export interface Character {
   type: string;
   gender: "Female" | "Male" | "Genderless" | "unknown";
   image: string;
-}
+  origin: {
+    name: string;
+    url: string;
+  };
+};
 
 export interface ApiResponse {
   info: {
     pages: number;
   };
   results: Character[];
+  error?: string
 }
 
 export interface User {

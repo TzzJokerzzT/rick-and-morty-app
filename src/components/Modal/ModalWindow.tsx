@@ -8,6 +8,7 @@ import {
   useDisclosure,
   Button,
   Image,
+  Divider,
 } from "@nextui-org/react";
 
 const ModalWindow = ({ character }: ModalProps) => {
@@ -26,11 +27,30 @@ const ModalWindow = ({ character }: ModalProps) => {
               </ModalHeader>
               <ModalBody>
                 <Image
-                  className="border-solid border-2 border-[#0F8F2E]"
+                  className="border-solid border-2 border-[#0F8F2E] ml-[3.2rem]"
                   width={300}
                   src={character.image}
                   alt={`${character.name} photo`}
                 />
+                <Divider className="my-4" />
+                <p>
+                  <strong>Status:</strong> {character.status}
+                </p>
+                <p>
+                  <strong>Species:</strong> {character.species}
+                </p>
+                <p>
+                  <strong>Type:</strong>{" "}
+                  {character.type === "" ? "N/A" : character.type}
+                </p>
+                <p>
+                  <strong>Gender: </strong>
+                  {character.gender}
+                </p>
+                <p>
+                  <strong>Origin:</strong> {character.origin.name}
+                </p>
+                <Divider />
               </ModalBody>
               <ModalFooter>
                 <Button color="danger" variant="light" onPress={onClose}>

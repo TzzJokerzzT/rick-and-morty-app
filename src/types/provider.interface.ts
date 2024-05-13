@@ -13,15 +13,12 @@ export interface ProviderState {
   page: number;
   pagPages: number;
   isLoading: boolean;
+  error: boolean;
+  name: string;
   setPage: React.Dispatch<SetStateAction<number>>;
-  localStorageStates: () => {
-    email: string;
-    password: string;
-    isFavoriteChar: Character[];
-    isFavorite: { [key: number]: boolean };
-  };
   handleChangeEmail: (e: React.ChangeEvent<HTMLInputElement>) => void;
   handleChangePassword: (e: React.ChangeEvent<HTMLInputElement>) => void;
+  handleLogOut: () => void;
   handleSubmitForm: (e: React.FormEvent<HTMLFormElement>) => void;
   handleFavoriteToggle: (character: Character) => void;
   handleClear: () => void;
@@ -29,8 +26,4 @@ export interface ProviderState {
   handleGender: (i: string) => void;
   handleName: (i: string) => void;
   handleSubmit: (e: React.FormEvent<HTMLFormElement>) => void;
-}
-
-export interface FavoriteProps {
-  [key: number]: boolean;
 }

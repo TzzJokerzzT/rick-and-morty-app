@@ -7,8 +7,8 @@ const InputSearch = ({
   size,
   className,
   placeholder,
-  defaultValue,
   onChange,
+  value,
 }: InputSearchProps) => {
   return (
     <>
@@ -18,7 +18,7 @@ const InputSearch = ({
         size={size}
         className={className}
         placeholder={placeholder}
-        defaultValue={defaultValue}
+        value={value}
         onChange={onChange}
       />
     </>

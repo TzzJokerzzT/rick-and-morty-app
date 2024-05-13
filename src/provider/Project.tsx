@@ -1,12 +1,9 @@
 import { useEffect, useState, createContext } from "react";
 import { fecthAPI } from "@/services/API";
-import {
-  FavoriteProps,
-  ProviderProps,
-  ProviderState,
-} from "@/types/provider.interface";
+import { ProviderProps, ProviderState } from "@/types/provider.interface";
 import { Character } from "@/types/services.interface";
 import { user } from "@/services/user";
+import { useLocalStorage } from "@/hook/useLocalStorage";
 
 export const ProjectContext = createContext<ProviderState | undefined>(
   undefined
@@ -15,46 +12,42 @@ export const ProjectContext = createContext<ProviderState | undefined>(
 export const ProjectProvider = ({ children }: ProviderProps) => {
   ///States
   const [character, setCharacter] = useState<Character[]>([]);
-  const [email, setEmail] = useState<string>("hola");
-  const [password, setPassword] = useState<string>("");
-  const [isValid, setIsValid] = useState<boolean>(true);
+  // const [email, setEmail] = useState<string>("");
+  const [email, setEmail] = useLocalStorage("email", "");
+  const [password, setPassword] = useLocalStorage("password", "");
+  // const [isValid, setIsValid] = useState<boolean>(true);
+  const [isValid, setIsValid] = useLocalStorage("isValid", false);
   const [isLoading, setIsLoading] = useState<boolean>(false);
-  const [isFavoriteChar, setIsFavoriteChar] = useState<Character[]>([]);
-  const [isFavorite, setIsFavorite] = useState<FavoriteProps>([]);
-  const [page, setPage] = useState<number>(1);
-  const [pagPages, setPagPages] = useState<number>(0);
-  const [status, setStatus] = useState<string>("");
-  const [gender, setGender] = useState<string>("");
-  const [name, setName] = useState<string>("");
-  /// LocalStorage
-  const localStorageStates = () => {
-    const states = {
-      email,
-      password,
-      isFavoriteChar,
-      isFavorite,
-    };
-    const statesJSON = JSON.stringify(states);
-    localStorage.setItem("appStates", statesJSON);
-    return { email, password, isFavoriteChar, isFavorite };
-  };
-
-  const getStatesLocalStorage = () => {
-    const statesJSON = localStorage.getItem("appStates");
-    if (!statesJSON) return;
-    const states = JSON.parse(statesJSON);
-    setEmail(states.email);
-    setPassword(states.password);
-    setIsFavoriteChar(states.isFavoriteChar);
-    setIsFavorite(states.isFavorite);
-  };
-
+  // const [isFavoriteChar, setIsFavoriteChar] = useState<Character[]>([]);
+  const [isFavoriteChar, setIsFavoriteChar] = useLocalStorage(
+    "isFavoriteChar",
+    []
+  );
+  // const [isFavorite, setIsFavorite] = useState<FavoriteProps>([]);
+  const [isFavorite, setIsFavorite] = useLocalStorage("isFavorite", {});
+  // const [page, setPage] = useState<number>(1);
+  const [page, setPage] = useLocalStorage("page", 1);
+  // const [pagPages, setPagPages] = useState<number>(0);
+  const [pagPages, setPagPages] = useLocalStorage("pagPages", 0);
+  // const [status, setStatus] = useState<string>("");
+  const [status, setStatus] = useLocalStorage("status", "");
+  // const [gender, setGender] = useState<string>("");
+  const [gender, setGender] = useLocalStorage("gender", "");
+  // const [name, setName] = useState<string>("");
+  const [name, setName] = useLocalStorage("name", "");
+  const [error, setError] = useState(false);
   ///Handler Function
   const handleChangeEmail = (e: React.ChangeEvent<HTMLInputElement>) => {
     setEmail(e.target.value);
   };
   const handleChangePassword = (e: React.ChangeEvent<HTMLInputElement>) => {
     setPassword(e.target.value);
+  };
+
+  const handleLogOut = () => {
+    setEmail("");
+    setPassword("");
+    setIsValid(false);
   };
 
   const handleSubmitForm = (e: React.FormEvent<HTMLFormElement>) => {
@@ -65,21 +58,27 @@ export const ProjectProvider = ({ children }: ProviderProps) => {
   };
 
   const handleFavoriteToggle = (character: Character) => {
-    if (isFavoriteChar.some((fav) => fav.id === character.id)) {
+    const newIsFavorite = { ...isFavorite };
+    if (isFavoriteChar.some((fav: Character) => fav.id === character.id)) {
       setIsFavoriteChar(
-        isFavoriteChar.filter((fav) => fav.id !== character.id)
+        isFavoriteChar.filter((fav: Character) => fav.id !== character.id)
       );
+      delete newIsFavorite[Number(character.id)];
     } else {
       setIsFavoriteChar([...isFavoriteChar, character]);
+      newIsFavorite[character.id] = true;
     }
-    setIsFavorite((prev) => ({
-      ...prev,
-      [Number(character.id)]: !prev[Number(character.id)],
-    }));
+    setIsFavorite(newIsFavorite);
   };
 
   const handleClear = () => {
     setPage(1);
+    setPagPages(0);
+    setStatus("");
+    setGender("");
+    setName("");
+    setError(false);
+    // window.location.reload();
   };
 
   const handleStatus = (i: string) => {
@@ -100,16 +99,18 @@ export const ProjectProvider = ({ children }: ProviderProps) => {
 
   // ///Use Effect
   useEffect(() => {
-    getStatesLocalStorage();
     setIsLoading(true);
-    const fetchData = async () => {
-      const data = await fecthAPI(page, status, gender, name);
-      setCharacter(data.results);
-      setPagPages(data.info.pages);
-    };
-    fetchData();
+    fecthAPI(page, status, gender, name).then((data) => {
+      try {
+        if (data.error) throw new Error("OCURRIO UN ERROR");
+        setCharacter(data.results);
+        setPagPages(data.info.pages);
+      } catch (error) {
+        setError(true);
+      }
+    });
     setIsLoading(false);
-  }, [page, status, gender, name]);
+  }, [page, name, status, gender, setPagPages]);
 
   return (
     <ProjectContext.Provider
@@ -121,10 +122,12 @@ export const ProjectProvider = ({ children }: ProviderProps) => {
         page,
         pagPages,
         isLoading,
-        localStorageStates,
+        error,
         setPage,
+        name,
         handleChangeEmail,
         handleChangePassword,
+        handleLogOut,
         handleSubmitForm,
         handleFavoriteToggle,
         handleClear,

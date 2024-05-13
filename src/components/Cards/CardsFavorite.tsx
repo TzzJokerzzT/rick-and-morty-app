@@ -18,7 +18,8 @@ const CardsFavorite = ({
         content={isFavorite[favoriteChar.id] ? <LikeFilled /> : <Like />}
       >
         <Card
-          className="w-[360px] h-[150px] rounded-xl flex-row items-center justify-between p-4 gap-4 border-solid border-2 border-[#004643]"
+          className="w-[22.5rem] h-[9.4rem] rounded-xl flex-row items-center justify-between p-4 gap-4 border-solid border-2 border-[#004643]
+        mobile:w-[20rem]"
           radius="lg"
         >
           <Badge

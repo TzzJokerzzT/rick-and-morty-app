@@ -13,23 +13,13 @@ import {
 import { Link } from "react-router-dom";
 import { ProjectContext } from "@/provider/Project";
 import { ProviderState } from "@/types/provider.interface";
+import Sidebar from "../Navigation/Sidebar";
 
 const Header = () => {
   const [isMenuOpen, setIsMenuOpen] = useState<boolean>(false);
-  const { isFavoriteChar } = useContext(ProjectContext) as ProviderState;
-
-  const menuItems = [
-    "Profile",
-    "Dashboard",
-    "Activity",
-    "Analytics",
-    "System",
-    "Deployments",
-    "My Settings",
-    "Team Settings",
-    "Help & Feedback",
-    "Log Out",
-  ];
+  const { isFavoriteChar, handleLogOut } = useContext(
+    ProjectContext
+  ) as ProviderState;
 
   const badgeNumber = isFavoriteChar.length;
 
@@ -44,10 +34,9 @@ const Header = () => {
           <img src="/Logo.png" alt="Logo" className="w-36" />
         </NavbarBrand>
       </NavbarContent>
-
       <NavbarContent className="hidden sm:flex gap-4" justify="center">
         <NavbarItem>
-          <Link color="foreground" to={"/"}>
+          <Link className="text-[#BAC7BD]" to={"/"}>
             Features
           </Link>
         </NavbarItem>
@@ -58,7 +47,7 @@ const Header = () => {
             color="success"
             variant="shadow"
           >
-            <Link to={"/favorites"} aria-current="page">
+            <Link className="text-[#498256]" to={"/favorites"}>
               Favorites
             </Link>
           </Badge>
@@ -66,30 +55,38 @@ const Header = () => {
       </NavbarContent>
       <NavbarContent justify="end">
         <NavbarItem>
-          <Button as={Link} color="success" to={"/"} variant="flat">
+          <Button
+            as={Link}
+            color="success"
+            to={"/"}
+            variant="flat"
+            onClick={handleLogOut}
+          >
             Log Out
           </Button>
         </NavbarItem>
       </NavbarContent>
       <NavbarMenu>
-        {menuItems.map((item, index) => (
-          <NavbarMenuItem key={`${item}-${index}`}>
-            <Link
-              color={
-                index === 2
-                  ? "primary"
-                  : index === menuItems.length - 1
-                  ? "danger"
-                  : "foreground"
-              }
-              className="w-full"
-              to="#"
-              // size="lg"
-            >
-              {item}
+        <NavbarMenuItem>
+          <NavbarItem>
+            <Link className="text-[#BAC7BD]" to={"/"}>
+              Features
             </Link>
-          </NavbarMenuItem>
-        ))}
+          </NavbarItem>
+          <NavbarItem isActive>
+            <Badge
+              content={badgeNumber}
+              isInvisible={badgeNumber === 0 ? true : false}
+              color="success"
+              variant="shadow"
+            >
+              <Link className="text-[#498256]" to={"/favorites"}>
+                Favorites
+              </Link>
+            </Badge>
+          </NavbarItem>
+          <Sidebar className="row-start-1 row-end-3" />
+        </NavbarMenuItem>
       </NavbarMenu>
     </Navbar>
   );
