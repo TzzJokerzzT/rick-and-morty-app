@@ -36,6 +36,17 @@ const LoginPage = () => {
             Login
           </ButtonSearch>
         )}
+        <div>
+          <h2 className="text-center">
+            <b>User data</b>
+          </h2>
+          <p>
+            <b>Email:</b> admin@admin.com
+          </p>
+          <p>
+            <b>Password:</b> admin
+          </p>
+        </div>
       </form>
     </section>
   );
