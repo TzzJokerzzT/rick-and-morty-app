@@ -10,32 +10,24 @@ export const ProjectContext = createContext<ProviderState | undefined>(
 );
 
 export const ProjectProvider = ({ children }: ProviderProps) => {
-  ///States
+   ///States
   const [character, setCharacter] = useState<Character[]>([]);
-  // const [email, setEmail] = useState<string>("");
   const [email, setEmail] = useLocalStorage("email", "");
   const [password, setPassword] = useLocalStorage("password", "");
-  // const [isValid, setIsValid] = useState<boolean>(true);
   const [isValid, setIsValid] = useLocalStorage("isValid", false);
   const [isLoading, setIsLoading] = useState<boolean>(false);
-  // const [isFavoriteChar, setIsFavoriteChar] = useState<Character[]>([]);
   const [isFavoriteChar, setIsFavoriteChar] = useLocalStorage(
     "isFavoriteChar",
     []
   );
-  // const [isFavorite, setIsFavorite] = useState<FavoriteProps>([]);
   const [isFavorite, setIsFavorite] = useLocalStorage("isFavorite", {});
-  // const [page, setPage] = useState<number>(1);
   const [page, setPage] = useLocalStorage("page", 1);
-  // const [pagPages, setPagPages] = useState<number>(0);
   const [pagPages, setPagPages] = useLocalStorage("pagPages", 0);
-  // const [status, setStatus] = useState<string>("");
   const [status, setStatus] = useLocalStorage("status", "");
-  // const [gender, setGender] = useState<string>("");
   const [gender, setGender] = useLocalStorage("gender", "");
-  // const [name, setName] = useState<string>("");
   const [name, setName] = useLocalStorage("name", "");
   const [error, setError] = useState(false);
+
   ///Handler Function
   const handleChangeEmail = (e: React.ChangeEvent<HTMLInputElement>) => {
     setEmail(e.target.value);
@@ -78,7 +70,6 @@ export const ProjectProvider = ({ children }: ProviderProps) => {
     setGender("");
     setName("");
     setError(false);
-    // window.location.reload();
   };
 
   const handleStatus = (i: string) => {
