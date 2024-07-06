@@ -18,5 +18,7 @@ Login information:
 [Rick and Morty Library](https://rick-and-morty-app-alpha-nine.vercel.app)
 
 <div>
+<a href="https://rick-and-morty-app-alpha-nine.vercel.app" target="_blank">
 <img src="./public/projects/rickandmorty.webp">
+</a>
 </div>
